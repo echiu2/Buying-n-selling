@@ -1,0 +1,12 @@
+{% extends "myapp/header.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Edwin Chiu's Profile</h2>
+<!-- Create form with post method: url directed to /listing_submission/ -->
+<form class="account" action="/listing_submission/" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Submit Post!</button>
+</form>
+{% endblock %}
