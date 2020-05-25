@@ -22,5 +22,7 @@ urlpatterns = [
     path('about/', include('myapp.urls')),
     path('shop/', include('myapp.urls')),
     path('account/', include('myapp.urls')),
-    path('cart/', include('myapp.urls'))
+    path('cart/', include('myapp.urls')),
+    path('login/', include('myapp.urls')),
+    path('register/', include('myapp.urls'))
 ]

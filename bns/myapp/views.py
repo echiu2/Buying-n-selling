@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import createListing
+from django.contrib.auth.forms import UserCreationForm
+from .forms import createListing, createUser
 from .models import Post
 
 # Create your views here.
 def index(request):
     #Get all listings from database
     all_listings = Post.objects.all()
-    return render(request, 'myapp/home.html', {'Listings': all_listings})
+    context = {'Listings': all_listings}
+    return render(request, 'myapp/home.html', context)
 
 def about(request):
     return render(request, 'myapp/about.html')
@@ -20,7 +22,7 @@ def shop(request):
 
 def account(request):
     # Used for submission: Check if request was performed using HTTP:"Post" -> if so, create form
-    if request.method == "Post":
+    if request.method == "POST":
         form = createListing(request.POST)
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -34,7 +36,8 @@ def account(request):
 
     # Instance of form
     form = createListing()
-    return render(request, 'myapp/account.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'myapp/account.html', context)
 
 #method for submitting form data into database
 def listing_submission(request):
@@ -48,7 +51,32 @@ def listing_submission(request):
     post = Post(title=title, date=date, price=price, description=description)
     post.save()
     form = createListing()
-    return render(request, 'myapp/account.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'myapp/account.html', context)
 
 def cart(request):
     return render(request, 'myapp/cart.html')
+
+def login(request):
+    form = UserCreationForm()
+    context = {'form': form}
+    return render(request, 'myapp/login.html', context)
+
+def register(request):   
+    form = createUser()
+ 
+    if request.method == "POST":
+        form = createUser(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password1 = form.cleaned_data['password1']
+            password2 = form.cleaned_data['password2']
+            # Create that user by checking if username is not used using django auth
+            form.save()
+            print(username, email, password1, password2)
+
+            return redirect("/")
+
+    context = {'form': form}
+    return render(request, 'myapp/register.html', context)

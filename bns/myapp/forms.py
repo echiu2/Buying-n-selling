@@ -1,4 +1,6 @@
 from django import forms 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 import datetime
 
 class createListing(forms.Form):
@@ -10,3 +12,14 @@ class createListing(forms.Form):
             'class':'form-control',
         }
     ))
+
+class createUser(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+    
+    def __init__(self, *args, **kwargs):
+        super(createUser, self).__init__(*args, **kwargs)
+        for field_name in ('username', 'email', 'password1', 'password2'):
+            self.fields[field_name].help_text = ''
+
