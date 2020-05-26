@@ -81,6 +81,10 @@ def loginPage(request):
     context = {'form': form}
     return render(request, 'myapp/login.html', context)
 
+def logoutUser(request):
+    logout(request)
+    return redirect('/login')
+
 def register(request):   
     form = createUser()
  
