@@ -23,3 +23,8 @@ class createUser(UserCreationForm):
         for field_name in ('username', 'email', 'password1', 'password2'):
             self.fields[field_name].help_text = ''
 
+class loginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    fields = ['username', 'password']
+

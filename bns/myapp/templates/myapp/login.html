@@ -6,7 +6,12 @@
 <form class="login" method="POST">
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Submit Post!</button>
+    <br>
+    <button type="submit" class="btn btn-primary">Login</button>
+    
+    {% for message in messages %}
+        <p id="messages"> {{ message }} </p>
+    {% endfor %}
 </form>
 {% endblock %}
 

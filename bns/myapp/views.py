@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .forms import createListing, createUser
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from .forms import createListing, createUser, loginForm
 from .models import Post
 
 # Create your views here.
@@ -29,6 +31,7 @@ def account(request):
             date = form.cleaned_data['date']
             price = form.cleaned_data['price']
             description = form.cleaned_data['description']
+
             # saves a new post instance from Post data
             form.save()
 
@@ -57,8 +60,24 @@ def listing_submission(request):
 def cart(request):
     return render(request, 'myapp/cart.html')
 
-def login(request):
-    form = UserCreationForm()
+def loginPage(request):
+    form = loginForm()
+
+    if request.method == "POST":
+        form = loginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
+            print(user)
+
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.info(request, 'Username or Password is incorrect!')
+
     context = {'form': form}
     return render(request, 'myapp/login.html', context)
 
@@ -68,14 +87,16 @@ def register(request):
     if request.method == "POST":
         form = createUser(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password1 = form.cleaned_data['password1']
-            password2 = form.cleaned_data['password2']
+            # username = form.cleaned_data['username']
+            # email = form.cleaned_data['email']
+            # password1 = form.cleaned_data['password1']
+            # password2 = form.cleaned_data['password2']
+
             # Create that user by checking if username is not used using django auth
             form.save()
-            print(username, email, password1, password2)
-
+            # print(username, email, password1, password2)
+            user = form.cleaned_data['username']
+            messages.success(request, 'You have created an account for ' + user)
             return redirect("/")
 
     context = {'form': form}
