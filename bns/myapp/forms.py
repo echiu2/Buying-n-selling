@@ -14,13 +14,18 @@ class createListing(forms.Form):
     ))
 
 class createUser(UserCreationForm):
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name','password1', 'password2']
+
+    email = forms.CharField(required=True)
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
     
     def __init__(self, *args, **kwargs):
         super(createUser, self).__init__(*args, **kwargs)
-        for field_name in ('username', 'email', 'password1', 'password2'):
+        for field_name in ('username', 'email', 'first_name', 'last_name', 'password1', 'password2'):
             self.fields[field_name].help_text = ''
 
 class loginForm(forms.Form):

@@ -6266,6 +6266,11 @@ button.bg-dark:focus {
   border-radius: 50% !important;
 }
 
+.resize {
+  width:100px; /* you can use % */
+  height: auto;
+}
+
 .rounded-0 {
   border-radius: 0 !important;
 }
