@@ -1,0 +1,20 @@
+{% extends "myapp/header.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <center>
+        {% for message in messages %}
+        <p id="messages"> {{ message }} </p>
+        {% endfor %}
+    </center>
+    <!-- Create form with post method: url directed to /listing_submission/ -->
+    <div class="container-fluid">
+        <h2 class="account-heading">Add New Listing</h2>
+        <form class="account" action="/listing_submission/" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-primary">Submit Post!</button>
+        </form>
+    </div>  
+{% endblock %}

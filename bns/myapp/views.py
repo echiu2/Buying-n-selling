@@ -5,8 +5,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import createListing, createUser, loginForm
+from .forms import createListing, createUser, loginForm, updateUserInfo, updateProfileInfo
 from .models import Post
 
 # Create your views here.
@@ -22,29 +23,49 @@ def about(request):
 def shop(request):
     return render(request, 'myapp/shop.html')
 
+@login_required(login_url='/login')
 def account(request):
+    if request.method == "POST":
+        update_user = updateUserInfo(request.POST, instance=request.user)
+        update_profile = updateProfileInfo(request.POST, 
+                                           request.FILES, 
+                                           instance=request.user.profile)
+        if update_user.is_valid() and update_profile.is_valid():
+            update_user.save()
+            update_profile.save()
+            messages.success(request, f'Your profile has been updated.')
+            return redirect('/account')
+
+    else:
+        update_user = updateUserInfo(instance=request.user)
+        update_profile = updateProfileInfo(instance=request.user.profile)
+
+    context = {
+        'update_user': update_user,
+        'update_profile': update_profile
+    }
+
+    return render(request, 'myapp/account.html', context)
+
+
+def addPost(request):
     # Used for submission: Check if request was performed using HTTP:"Post" -> if so, create form
     if request.method == "POST":
         form = createListing(request.POST)
         if form.is_valid():
-            title = form.cleaned_data['title']
-            date = form.cleaned_data['date']
-            price = form.cleaned_data['price']
-            description = form.cleaned_data['description']
 
             # saves a new post instance from Post data
             form.save()
 
-            print(title, date, price, description)
-
     # Instance of form
     form = createListing()
-    context = {'form': form}
-    return render(request, 'myapp/account.html', context)
+    context = {'form':form}
+    return render(request, 'myapp/addPost.html', context)
 
 #method for submitting form data into database
 def listing_submission(request):
     print('form was submitted')
+    messages.success(request, f'You have posted a new item.')
     #submitting data into database
     title = request.POST["title"]
     date = request.POST["date"]
@@ -55,7 +76,7 @@ def listing_submission(request):
     post.save()
     form = createListing()
     context = {'form': form}
-    return render(request, 'myapp/account.html', context)
+    return render(request, 'myapp/addPost.html', context)
 
 def cart(request):
     return render(request, 'myapp/cart.html')
