@@ -17,18 +17,21 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from listings.views import addPost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('myapp.urls')),
-    path('about/', include('myapp.urls')),
-    path('shop/', include('myapp.urls')),
-    path('account/', include('myapp.urls')),
-    path('addPost/', include('myapp.urls')),
-    path('cart/', include('myapp.urls')),
-    path('login/', include('myapp.urls')),
-    path('register/', include('myapp.urls'))
+    path('', include('user_profile.urls')),
+    path('', include('listings.urls')),
+    path('', include('shopping_cart.urls'))
+    # path('about/', include('myapp.urls')),
+    # path('shop/', include('myapp.urls')),
+    # path('account/', include('myapp.urls')),
+    # path('cart/', include('myapp.urls')),
+    # path('login/', include('myapp.urls')),
+    # path('register/', include('myapp.urls'))
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
