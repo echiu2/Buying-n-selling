@@ -90,3 +90,5 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'user_profile/register.html', context)
+
+#added comment to check github error fix
