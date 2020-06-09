@@ -7,7 +7,9 @@ from django.conf.urls.static import static
 # app_name = 'listings'
 urlpatterns = [
     path('addPost/', views.addPost, name='addPost'),
-    path('listing_submission/', views.listing_submission, name='listing_submission')
+    path('listing_submission/', views.listing_submission, name='listing_submission'),
+    path('post/', views.post, name='post'),
+    path('post/<slug:slug>/', views.single, name='single_post')
 ]
 
 if settings.DEBUG:

@@ -4,7 +4,7 @@
 <div class="col-xs-6">
     <h2><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h2>
 </div>
-{% for cart in Cart %}
+{% for item in Cart.items.all %}
 
 <!-- <div class="container-fluid">
     <div class="item">
@@ -35,8 +35,8 @@
 			<div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
 			</div>
 			<div class="col-md-6">
-                 <h4 class="product-name"><strong>{{cart.product}} </strong></h4>
-                 <h4><small>Price: ${{cart.subtotal}}</small></h4>
+                 <h4 class="product-name"><strong>{{item}} </strong></h4>
+                 <h4><small>Price: ${{item.price}}</small></h4>
 			</div>
 			<!-- <div class="col-xs-6"> -->
 				<!-- <div class="col-xs-6 text-right">
@@ -57,7 +57,7 @@
 	<div class="panel-footer">
 		<div class="row text-center">
 			<div class="col-xs-9" style="margin-right: 30px;">
-				<h4 class="text-right">Total: <strong>${{cart.final_total}}</strong></h4>
+				<h4 class="text-right">Total: <strong>${{Cart.subtotal}}</strong></h4>
              </div>
 			<div class="col-xs-3">
 				<button type="button" class="btn btn-primary btn-block">

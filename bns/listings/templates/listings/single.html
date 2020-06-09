@@ -1,0 +1,23 @@
+{% extends "user_profile/header.html" %}
+
+{% block content %}
+<br>
+<div>
+    <div class="container-fluid">
+        <div class="card" style="background-color: #e3f2fd;">
+            <div class="card-header">
+                <h2 class="card-title">{{ Listing.title }}</h2>
+            </div>
+            <div class="card-body">
+            <h5>Price: ${{ Listing.price }}  </h5>
+            <p class="card-text">{{ Listing.description }} </p>
+            <div class="card-footer">Posted on: {{ Listing.date }}
+                <button class="btn btn-primary" style="float:right;text-align:right;margin-left: 80px; margin-top: -8px;">Add to Cart</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+{% endblock %}

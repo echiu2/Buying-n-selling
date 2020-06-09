@@ -1,10 +1,25 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 from .forms import createListing
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+def post(request):
+    listing = Post.objects.all()
+    context = {'Listing': listing }
+    return render(request, 'listings/post.html', context)
+
+def single(request, slug):
+    try:
+        listing = Post.objects.get(slug=slug)
+        print(listing)
+        context = {'Listing': listing }
+        return render(request, 'listings/single.html', context)
+    except:
+        raise Http404
+
 
 def addPost(request):
     # Used for submission: Check if request was performed using HTTP:"Post" -> if so, create form
