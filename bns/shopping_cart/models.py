@@ -19,7 +19,7 @@ class Cart(models.Model):
     is_ordered = models.BooleanField(default=False)
     # product = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
     subtotal = models.DecimalField(default=0.00, decimal_places=2, max_digits=100)
-    # final_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=100) 
+    final_total = models.DecimalField(default=0.00, decimal_places=2, max_digits=100) 
     date_ordered = models.DateTimeField(auto_now=True)
     # amount = models.PositiveIntegerField(default=0)
 

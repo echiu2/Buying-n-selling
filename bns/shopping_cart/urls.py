@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 # app_name = 'myapp'
 urlpatterns = [
     path('cart/', views.cart, name='cart'),
+    path('cart/<slug:post_slug>/', views.update_cart, name='update_cart')
 ]
 
 if settings.DEBUG:
