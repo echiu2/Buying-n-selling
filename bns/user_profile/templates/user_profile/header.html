@@ -44,11 +44,16 @@
 					<a class="nav-link" href="/register">Register</a>
 				</li>
 			  </ul>
-			  <div class="input-group" style="margin-right: 20px;">
-				<input type="text" class="form-control" placeholder="Search for...">
-				<span class="input-group-btn" >
-					<button class="btn btn-default" type="button"><b class="glyphicon glyphicon-search"></b></button>
-				</span>
+			  <div class="input-group py-1 px-2 px-md-0">
+
+			  <form role="search" action='/s/'>
+				<div class="input-group" style="margin-right: 450px;">
+					<input type="text" class="form-control" name="q" placeholder="Search for...">
+					<span class="input-group-btn" >
+						<button class="btn btn-default" type="button"><b class="glyphicon glyphicon-search"></b></button>
+					</span>
+				</div>
+			  </form>
 			  </div>
 			  <span style="margin-right: 5px;">Hello,</span>
 			  <span> {{ request.user }}</span>

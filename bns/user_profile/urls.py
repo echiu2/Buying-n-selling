@@ -13,6 +13,7 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('register/', views.register, name='register'),
+    path('s/', views.search, name='search')
 ]
 
 if settings.DEBUG:

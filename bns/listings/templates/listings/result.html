@@ -1,0 +1,15 @@
+{% extends "user_profile/header.html" %}
+
+{% block content %}
+<br>
+<div>
+    <div class="container-fluid">
+        <h1>Search results: {{ query }}</h1>
+        {% for listing in Listings %}
+            <p>{{ listing }} </p>
+        {% endfor %}
+    </div>
+    <br>
+</div>
+
+{% endblock %}

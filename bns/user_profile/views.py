@@ -91,4 +91,21 @@ def register(request):
     context = {'form': form}
     return render(request, 'user_profile/register.html', context)
 
-#added comment to check github error fix
+def search(request):
+    try:
+        q = request.GET.get('q')
+    except:
+        q = None
+
+    if q:
+        listings = Post.objects.filter(title__icontains=q)
+        context = {
+            'query': q, 
+            'Listings': listings
+        }
+        template = 'listings/result.html'
+    else:
+        context = {}
+        template = 'user_profile/home.html'
+    
+    return render(request, template, context)
