@@ -1,13 +1,46 @@
 {% extends "user_profile/header.html" %}
 
 {% block content %}
+<style>
+    .text {
+        display: block;
+        width: 250px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+</style>
+
 <br>
 <div>
     <div class="container-fluid">
         <h1>Search results: {{ query }}</h1>
-        {% for listing in Listings %}
-            <p>{{ listing }} </p>
+        <div class="row">
+
+            {% for listing in Listings %}
+
+            <div class="col-sm-3">
+                <div class="card" style="background-color: #e3f2fd; width: 18rem; text-align: center;">
+                    <div class="card-header">
+                        <h4 class="card-title"><strong>{{ listing.title }}</strong></h4>
+                    </div>
+                    <div class="card-body">
+                    <img class="img-responsive" src="http://placehold.it/200x200">
+                    <h5>Price: ${{ listing.price }}  </h5>
+                    <p class="card-text text">{{ listing.description }} </p>
+                    <div class="card-footer">Posted on: {{ listing.date }}
+                    </div>
+                    </div>
+                    <a href='{{ listing.get_absolute_url }}'>
+                        <button class="btn btn-primary" style=" margin-top: -8px;">View Item</button>
+                    </a>
+                </div>
+                <br>
+            </div>
+
         {% endfor %}
+
+        </div>
     </div>
     <br>
 </div>

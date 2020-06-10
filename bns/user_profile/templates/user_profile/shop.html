@@ -1,27 +1,45 @@
 {% extends "user_profile/header.html" %}
 
 {% block content %}
+<style>
+    .text {
+        display: block;
+        width: 250px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+</style>
 <br>
 <div>
-    {% for listing in Listings %}
     <div class="container-fluid">
-        <div class="card" style="background-color: #e3f2fd;">
-            <div class="card-header">
-                <h2 class="card-title">{{ listing.title }}</h2>
+        <div class="row">
+
+            {% for listing in Listings %}
+
+            <div class="col-sm-3">
+                <div class="card" style="background-color: #e3f2fd; width: 18rem; text-align: center;">
+                    <div class="card-header">
+                        <h4 class="card-title"><strong>{{ listing.title }}</strong></h4>
+                    </div>
+                    <div class="card-body">
+                    <img class="img-responsive" src="http://placehold.it/200x200">
+                    <h5>Price: ${{ listing.price }}  </h5>
+                    <p class="card-text text">{{ listing.description }} </p>
+                    <div class="card-footer">Posted on: {{ listing.date }}
+                    </div>
+                    </div>
+                    <a href='{{ listing.get_absolute_url }}'>
+                        <button class="btn btn-primary" style=" margin-top: -8px;">View Item</button>
+                    </a>
+                </div>
+                <br>
             </div>
-            <div class="card-body">
-            <h5>Price: ${{ listing.price }}  </h5>
-            <p class="card-text">{{ listing.description }} </p>
-            <div class="card-footer">Posted on: {{ listing.date }}
-                <a href='{{ listing.get_absolute_url }}'>
-                    <button class="btn btn-primary" style="float:right;text-align:right;margin-left: 80px; margin-top: -8px;">View Item</button>
-                </a>
-            </div>
-            </div>
+
+        {% endfor %}
+
         </div>
     </div>
-    <br>
-    {% endfor %}
 </div>
 
 {% endblock %}

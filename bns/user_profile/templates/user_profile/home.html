@@ -13,34 +13,14 @@
 <div>
     <br>
     <center>
-    <a href="/addPost"><button type="button-post" class="btn btn-primary">Add Post</button></a>
-    <button type="button-filter" class="btn btn-primary">Filter</button>
-
     {% for message in messages %}
         <p id="messages"> {{ message }} </p>
     {% endfor %}
-
     </center>
     <br>
 </div>
-<h2 class="centered">Welcome to Buying and Selling!</h2>
-
+    <h2 class="centered">Welcome to Buying and Selling!</h2>
 <div>
-    <!-- {% for listing in Listings %}
-    <div class="container-fluid">
-        <div class="card" style="background-color: #e3f2fd;">
-            <div class="card-header">
-                <h2 class="card-title">{{ listing.title }}</h2>
-            </div>
-            <div class="card-body">
-            <h5>Price: ${{ listing.price }}  </h5>
-            <p class="card-text">{{ listing.description }} </p>
-            <div class="card-footer">Posted on: {{ listing.date }}</div>
-            </div>
-        </div>
-    </div>
-    <br>
-    {% endfor %} -->
 </div>
 
 {% endblock %}
