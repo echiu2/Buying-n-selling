@@ -28,7 +28,7 @@ macholib==1.5.1
 mccabe==0.6.1
 modulegraph==0.10.4
 numpy==1.16.6
-opencv-contrib-python==3.4.2.17
+opencv-contrib-python==4.2.0.32
 opencv-python==3.4.2.17
 pathlib2==2.3.5
 py2app==0.7.3
